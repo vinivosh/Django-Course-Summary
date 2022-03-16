@@ -1,6 +1,8 @@
 /*
     Provided by Maximilian Schwarzmüller!
     Source code: https://github.com/academind/django-practical-guide-course-code/blob/summary-14-finished/meetups/static/meetups/styles/base.css
+
+    Modifications post-first commit made by me 😎
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Slab:wght@700&display=swap');
@@ -14,6 +16,10 @@ body {
   margin: 0;
   background-color: #ccc3db;
   color: #3e3e41;
+}
+
+main {
+  padding: 20px 30px;
 }
 
 h1,
