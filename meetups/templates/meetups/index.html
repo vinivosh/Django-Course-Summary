@@ -9,20 +9,37 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="{% static 'meetups/styles/base.css' %}">
+    <link rel="stylesheet" href="{% static 'meetups/styles/all-meetups.css' %}">
 </head>
 <body>
+    <header id="main-header">
+        <nav><a href="/meetups" id="main-logo">Django Meetups</a></nav>
+        <h1>We've got great events coming up!</h1>
+        <p>Find the one that interests you the most!</p>
+    </header>
     <main>
-        <h1>Hello world!</h1>
-        
-        <h2>All Meetups</h2>
-        
-        {% if showMeetups %}
-        {% for meetup in meetups %}
-        <p>{{meetup.title}}</p>
-        {% endfor %}
-        {% else %}
-        <p>No meetups to show...</p>
-        {% endif %}
+        <section>
+            <h2>Upcoming Meetups</h2>
+            <ol>
+                {% for meetup in meetups %}
+                    <li class="meetup-item">
+                        <article>
+                            <div>
+                                <img src="" alt="">
+                            </div>
+
+                            <div class="meetup-details">
+                                <h3>{{ meetup.title }}</h3>
+                                <address>{{ meetup.location }}</address>
+                            </div>
+                            <div class="meetup-actions">
+                                <a href="" class="btn">More details</a>
+                            </div>
+                        </article>
+                    </li>
+                {% endfor %}
+            </ol>
+        </section>        
     </main>
 </body>
 </html>
