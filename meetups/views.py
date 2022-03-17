@@ -14,7 +14,7 @@ def index(request):
         },
         {
             'title': 'Coffee Break 1.0',
-            'location': 'Pindamonhangama',
+            'location': 'Pindamonhangaba',
             'slug': 'coffee-break-pindamonhangaba'
         },
         {

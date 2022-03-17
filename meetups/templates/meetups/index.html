@@ -33,7 +33,7 @@
                                 <address>{{ meetup.location }}</address>
                             </div>
                             <div class="meetup-actions">
-                                <a href="" class="btn">More details</a>
+                                <a href="{% url 'meetupDetails' meetup.slug %}" class="btn">More details</a>
                             </div>
                         </article>
                     </li>
