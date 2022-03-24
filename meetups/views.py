@@ -30,7 +30,6 @@ def index(request):
     ]
 
     return render(request, 'meetups/index.html', {
-        'showMeetups': True,
         'meetups': meetups
     })
 
