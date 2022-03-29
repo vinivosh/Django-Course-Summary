@@ -2,48 +2,48 @@
 {% load static %}
 
 {% block title %}
-    {{ meetupTitle }}
+  {{ meetupTitle }}
 {% endblock %}
 
 {% block siteCss %}
-    <link rel="stylesheet" href="{% static 'meetups/styles/meetup-detail.css' %}">
+  <link rel="stylesheet" href="{% static 'meetups/styles/meetup-detail.css' %}">
 {% endblock %}
 
 {% block headerTitle %}
-    {{ meetupTitle }}
+  {{ meetupTitle }}
 {% endblock %}
 
 <!-- Main -->
 {% block body %}
-    {% if meetupFound %}
+  {% if meetupFound %}
 
-        <article>
-            <img src="" alt="">
+    <article>
+      <img src="" alt="">
 
-            <section id="location">
-                <h2>Meetup Location</h2>
-                <address>This meetup will take place in <span>LOCATION</span> (ADDRESS).</address>
-            </section>
+      <section id="location">
+        <h2>Meetup Location</h2>
+        <address>This meetup will take place in <span>LOCATION</span> (ADDRESS).</address>
+      </section>
 
-            <section id="details">
-                <h2>What's This Meetup About?</h2>
-                <p>{{ meetupDescription }}</p>
-                <footer>
-                    <p>Need more deteails? Please <a href="mailto:organizer-email-here@gmail.com">contact the event organizer</a> (but don't spam us, ok? 😉)</p>
-                </footer>
-            </section>
+      <section id="details">
+        <h2>What's This Meetup About?</h2>
+        <p>{{ meetupDescription }}</p>
+        <footer>
+          <p>Need more deteails? Please <a href="mailto:organizer-email-here@gmail.com">contact the event organizer</a> (but don't spam us, ok? 😉)</p>
+        </footer>
+      </section>
 
-            <section id="registration">
-                <h2>Join us!</h2>
-                <form action="">
-                    FORM HERE
-                </form>
-            </section>
-        </article>
+      <section id="registration">
+        <h2>Join us!</h2>
+        <form action="">
+          FORM HERE
+        </form>
+      </section>
+    </article>
 
-    {% else %}
+  {% else %}
 
-        <p>No meetup found for this URL...</p>
+    <p>No meetup found for this URL...</p>
 
-    {% endif %}
+  {% endif %}
 {% endblock %}
