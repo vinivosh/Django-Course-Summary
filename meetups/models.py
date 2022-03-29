@@ -8,3 +8,7 @@ class Meetup(models.Model):
     slug = models.SlugField(unique=True)
     description = models.TextField()
     image = models.ImageField(upload_to='images', default='defaultImage.jpg')
+
+    # Defining this will change how an object of this class will be converted to a string via the default python function str(). Cool!
+    def __str__(self) -> str:
+        return f'{self.title} - {self.slug}'
