@@ -22,8 +22,7 @@ def meetupDetails(request, meetupSlug):
 
         return render(request, 'meetups/meetupDetails.html', {
             'meetupFound': True,
-            'meetupTitle': selectedMeetup.title,
-            'meetupDescription': selectedMeetup.description
+            'meetup': selectedMeetup
             })
     except Exception as exc:
         return render(request, 'meetups/meetupDetails.html', {
