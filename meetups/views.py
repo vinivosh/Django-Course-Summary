@@ -4,6 +4,7 @@ from django.http import HttpResponse
 
 import meetups
 from .models import Meetup
+from .forms import ParticipantForm
 
 
 
@@ -19,10 +20,12 @@ def index(request):
 def meetupDetails(request, meetupSlug):
     try:
         selectedMeetup = Meetup.objects.get(slug=meetupSlug)
+        participantForm = ParticipantForm()
 
         return render(request, 'meetups/meetupDetails.html', {
             'meetupFound': True,
-            'meetup': selectedMeetup
+            'meetup': selectedMeetup,
+            'form': participantForm
             })
     except Exception as exc:
         return render(request, 'meetups/meetupDetails.html', {

@@ -36,7 +36,12 @@
       <section id="registration">
         <h2>Join us!</h2>
         <form action="">
-          FORM HERE
+          <ul>
+            {{ form.as_ul }}
+          </ul>
+          <div id="registration-actions">
+            <button>Register</button>
+          </div>
         </form>
       </section>
     </article>
