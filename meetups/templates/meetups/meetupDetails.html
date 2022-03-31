@@ -35,7 +35,9 @@
 
       <section id="registration">
         <h2>Join us!</h2>
-        <form action="">
+        <form action="{% url 'meetupDetails' meetup.slug %}" method="POST">
+          {% comment %} This is for prevention of phishing attacks! {% endcomment %}
+          {% csrf_token %}
           <ul>
             {{ form.as_ul }}
           </ul>
