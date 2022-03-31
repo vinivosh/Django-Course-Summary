@@ -1,5 +1,5 @@
 from email.mime import image
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 import meetups
@@ -16,6 +16,7 @@ def index(request):
         'meetups': meetups
     })
 
+
 # Get the meetup details page
 def meetupDetails(request, meetupSlug):
     try:
@@ -26,6 +27,7 @@ def meetupDetails(request, meetupSlug):
         else:
             # There's an annoying limitation on this form: you can't use the same e-mail to enter different meetups for now. This will be corrected later.
             participantForm = ParticipantForm(request.POST)
+            print(request.POST)
 
             # If the form entered by the user is valid, save the participant to the DB!
             if participantForm.is_valid():
@@ -33,6 +35,8 @@ def meetupDetails(request, meetupSlug):
                 participant = participantForm.save()
                 # Adding the participant to the "participants" field in the current meetup
                 selectedMeetup.participants.add(participant)
+                # Redirecting to the confirmation page
+                return redirect('meetupRegisterSuccess', meetupSlug, request.POST['email'])
 
         return render(request, 'meetups/meetupDetails.html', {
             'meetupFound': True,
@@ -40,6 +44,23 @@ def meetupDetails(request, meetupSlug):
             'form': participantForm
         })
     except Exception as exc:
+        print(exc)
         return render(request, 'meetups/meetupDetails.html', {
+            'meetupFound': False
+        })
+
+
+# Get the meetup details page
+def meetupRegisterSuccess(request, meetupSlug, email):
+    try:
+        selectedMeetup = Meetup.objects.get(slug=meetupSlug)
+
+        return render(request, 'meetups/registration-success.html', {
+            'meetupFound': True,
+            'meetup': selectedMeetup,
+            'email': email
+        })
+    except Exception:
+        return render(request, 'meetups/registration-success.html', {
             'meetupFound': False
         })

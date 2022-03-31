@@ -23,13 +23,16 @@
       <section id="location">
         <h2>Meetup Location</h2>
         <address>This meetup will take place in <span>{{ meetup.location.country }}, {{ meetup.location.city }} - {{ meetup.location.provAcronym }}</span> ({{ meetup.location.fullAddress }}).</address>
+
+        <h2>Meetup Date</h2>
+        <p>This meetup will take place on {{ meetup.date }}</p>
       </section>
 
       <section id="details">
         <h2>What's This Meetup About?</h2>
         <p>{{ meetup.description }}</p>
         <footer>
-          <p>Need more deteails? Please <a href="mailto:organizer-email-here@gmail.com">contact the event organizer</a> (but don't spam us, ok? 😉)</p>
+          <p>Need more details? Please <a href="mailto:{{ meetup.organizerEmail }}">contact the event organizer</a> (but don't spam us, ok? 😉)</p>
         </footer>
       </section>
 

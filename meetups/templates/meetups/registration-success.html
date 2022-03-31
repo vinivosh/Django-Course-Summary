@@ -1,0 +1,47 @@
+{% extends 'meetups/base/base.html' %}
+{% load static %}
+
+{% block title %}
+  {{ meetup.title }}
+{% endblock %}
+
+{% block siteCss %}
+  <link rel="stylesheet" href="{% static 'meetups/styles/meetup-detail.css' %}">
+  <link rel="stylesheet" href="{% static 'meetups/styles/registration-confirmation.css' %}">
+{% endblock %}
+
+{% block headerTitle %}
+  {{ meetup.title }}
+{% endblock %}
+
+<!-- Main -->
+{% block body %}
+
+  {% if meetupFound %}
+  
+    <article>
+      <img id="main-image" src="{{ meetup.image.url }}" alt="An image for the meetup &quot;{{ meetup.title }}&quot;">
+
+      <section id="confirmation">
+        <h2>Registration Successeful!</h2>
+        <p>Your e -mail ({{ email }}) was successefully addded to our participants list for {{ meetup.title }}!</p>
+        <p>Questions? Can't make it? Please <a href="mailto:{{ meetup.organizerEmail }}">contact the event organizer</a> ahead of time 😉</p>
+      </section>
+
+      <section id="continue">
+        <p>You can sign up for some other meetups too!</p>
+        <p><a href="/meetups" class="btn">Explore more meetups</a></p>
+      </section>
+    </article>
+
+  {% else %}
+
+    <article>
+
+      <p>No meetup found for this URL...</p>
+
+    </article>
+
+  {% endif %}
+
+{% endblock %}
