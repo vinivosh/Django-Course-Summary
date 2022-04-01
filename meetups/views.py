@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 import meetups
-from .models import Meetup
+from .models import Meetup, Participant
 from .forms import ParticipantForm
 
 
@@ -22,27 +22,33 @@ def meetupDetails(request, meetupSlug):
     try:
         selectedMeetup = Meetup.objects.get(slug=meetupSlug)
 
-        if request.method == 'GET':
-            participantForm = ParticipantForm()
-        else:
-            # There's an annoying limitation on this form: you can't use the same e-mail to enter different meetups for now. This will be corrected later.
+        # If method POST, then we're processing a registration
+        if request.method == 'POST':
             participantForm = ParticipantForm(request.POST)
-            print(request.POST)
 
-            # If the form entered by the user is valid, save the participant to the DB!
+            # If the form entered by the user is valid, create and save/just save the participant to the DB
             if participantForm.is_valid():
-                # Saving the participant to the Participant table and to a variable
-                participant = participantForm.save()
-                # Adding the participant to the "participants" field in the current meetup
+                # Getting the email field from the form
+                participantEmail = participantForm.cleaned_data['email']
+                # Create and save the new participant to the Participant table and to a variable. If it already exists, just get the existing entry.
+                participant, wasCreated = Participant.objects.get_or_create(email=participantEmail) # Remember: the get_or_create method returns a tuple, with the participant it got or created and a boolean flag "wasCreated"
+                # Adding the new or existing participant to the "participants" field in the current meetup
                 selectedMeetup.participants.add(participant)
                 # Redirecting to the confirmation page
-                return redirect('meetupRegisterSuccess', meetupSlug, request.POST['email'])
+                return redirect('meetupRegisterSuccess', meetupSlug, participantForm.cleaned_data['email'])
 
+        # Else, the method's probably GET and we're just returning the page with the empty form for a possible registration
+        else:
+            participantForm = ParticipantForm()
+
+        # For any method, we must return the page anyway. If a registration was susccesseful though, we don't get here, as we're redirected to the 'meetupRegisterSuccess' page
         return render(request, 'meetups/meetupDetails.html', {
             'meetupFound': True,
             'meetup': selectedMeetup,
             'form': participantForm
         })
+
+    # If the meetup with the corresponding slug wasn't found, return a "not found" version of the page
     except Exception as exc:
         print(exc)
         return render(request, 'meetups/meetupDetails.html', {
@@ -50,7 +56,7 @@ def meetupDetails(request, meetupSlug):
         })
 
 
-# Get the meetup details page
+# Registration success page
 def meetupRegisterSuccess(request, meetupSlug, email):
     try:
         selectedMeetup = Meetup.objects.get(slug=meetupSlug)
